@@ -56,7 +56,8 @@ html_content = response.text
 soup = BeautifulSoup(html_content, "html.parser")
 driver.find_element("xpath", '//*[@id="trust-browser-button"]').click()
 
-
+while(True):
+    continue
 
 
 #<a class="Mrphs-toolsNav__menuitem--link " href="https://laulima.hawaii.edu/portal/site/%7Ekawikakn/tool/64f8588c-52ca-4e25-8d17-1c4c67a6b2a6" title="Membership - For viewing and modifying your membership in sites of which you are a participant or that you may join">
