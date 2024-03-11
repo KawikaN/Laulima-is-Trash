@@ -1,0 +1,97 @@
+logging in
+<html lang="en">
+<head>
+<link href="/frame/static/v4/App.css?v=f781e" rel="stylesheet"/>
+<!-- Set latest compatibility for IE -->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+</head>
+<body class="uses-app-background">
+<div class="app"></div>
+<script id="error-data" type="text/json">{"stat": "FAIL", "message_enum": 57, "is_preauth_outcome": false}</script>
+<script id="base-data" type="text/json">{"brand": {"company": "Duo Security", "desktop": "Duo Desktop", "mobile": "Duo Mobile", "id": "duo", "website_root": "https://duo.com", "product": "Duo", "push": "Duo Push"}, "help_url": "https://guide.duo.com/traditional-enrollment", "logo": {"logo_link": "/frame/prompt?sid=frameless-8df6c1d5-3a89-4d0b-acec-f6ae4291c58c", "logo_alt_text": "Duo Security Logo", "logo_src": "/frame/static/img/duo-cisco-logo-green.png?v=437f1"}, "session_id": "frameless-8df6c1d5-3a89-4d0b-acec-f6ae4291c58c", "use_duo_branding": true, "const": {"factor_phone": "Phone Call", "factor_passcode": "Passcode", "factor_push": "Duo Push", "device_u2f": "u2f", "device_webauthn": "webauthn", "post_auth_add_device": "addDevice", "post_auth_manage_devices": "manageDevices", "os_families": ["Windows Phone", "Blackberry", "Mac OS X", "Windows", "iOS", "Android", "Linux", "Chrome OS", "Unknown Operating System"], "browser_families": ["Safari", "Chrome", "Firefox", "Internet Explorer", "Edge", "Mobile Safari", "Chrome Mobile", "Opera", "Opera Mobile", "Firefox Mobile", "Unknown", "Edge Chromium", "Edge Chromium Mobile"], "software_family_chrome": "Chrome"}, "is_new_user": false, "show_self_service_links": false, "helpdesk_message": "null", "is_in_oidc_flow": true, "xsrf_token": "c43e57beb8c14712b29511cfdf35538f", "style": {"app_background_color": "#E7E9ED", "accent_color": "#0B69E5"}, "features": {"has_webauthn_browser_expansion_feature": false, "has_hostname_validation_feature": false, "has_auto_selection_feature": false, "has_device_filter_feature": false, "has_iframed_up_blocking_feature": false}, "session_trace": "", "can_offer_new_device_flow": false}</script>
+<script id="translations" type="text/json">
+{"locale_data": {"js-messages": {"": {"domain": "js-messages", "lang": "en", "plural_forms": "nplurals=2; plural=(n != 1);"}}}, "domain": "js-messages"}
+</script>
+<script data-url="/frame/browser_exceptions" id="browser_exceptions" src="/frame/static/shared/js/errors.js?v=d10d2"></script>
+<script src="/frame/static/v4/App.js?v=812a3"></script>
+</body>
+</html>
+
+Waiting for push
+<html lang="en">
+<head>
+<link href="/frame/static/v4/App.css?v=f781e" rel="stylesheet"/>
+<!-- Set latest compatibility for IE -->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+</head>
+<body class="uses-app-background">
+<div class="app"></div>
+<script id="error-data" type="text/json">{"stat": "FAIL", "message_enum": 57, "is_preauth_outcome": false}</script>
+<script id="base-data" type="text/json">{"brand": {"company": "Duo Security", "desktop": "Duo Desktop", "mobile": "Duo Mobile", "id": "duo", "website_root": "https://duo.com", "product": "Duo", "push": "Duo Push"}, "help_url": "https://guide.duo.com/traditional-enrollment", "logo": {"logo_link": "/frame/prompt?sid=frameless-8df6c1d5-3a89-4d0b-acec-f6ae4291c58c", "logo_alt_text": "Duo Security Logo", "logo_src": "/frame/static/img/duo-cisco-logo-green.png?v=437f1"}, "session_id": "frameless-8df6c1d5-3a89-4d0b-acec-f6ae4291c58c", "use_duo_branding": true, "const": {"factor_phone": "Phone Call", "factor_passcode": "Passcode", "factor_push": "Duo Push", "device_u2f": "u2f", "device_webauthn": "webauthn", "post_auth_add_device": "addDevice", "post_auth_manage_devices": "manageDevices", "os_families": ["Windows Phone", "Blackberry", "Mac OS X", "Windows", "iOS", "Android", "Linux", "Chrome OS", "Unknown Operating System"], "browser_families": ["Safari", "Chrome", "Firefox", "Internet Explorer", "Edge", "Mobile Safari", "Chrome Mobile", "Opera", "Opera Mobile", "Firefox Mobile", "Unknown", "Edge Chromium", "Edge Chromium Mobile"], "software_family_chrome": "Chrome"}, "is_new_user": false, "show_self_service_links": false, "helpdesk_message": "null", "is_in_oidc_flow": true, "xsrf_token": "12d40ae0011d47df98fae9e7b677171b", "style": {"app_background_color": "#E7E9ED", "accent_color": "#0B69E5"}, "features": {"has_webauthn_browser_expansion_feature": false, "has_hostname_validation_feature": false, "has_auto_selection_feature": false, "has_device_filter_feature": false, "has_iframed_up_blocking_feature": false}, "session_trace": "", "can_offer_new_device_flow": false}</script>
+<script id="translations" type="text/json">
+{"locale_data": {"js-messages": {"": {"domain": "js-messages", "lang": "en", "plural_forms": "nplurals=2; plural=(n != 1);"}}}, "domain": "js-messages"}
+</script>
+<script data-url="/frame/browser_exceptions" id="browser_exceptions" src="/frame/static/shared/js/errors.js?v=d10d2"></script>
+<script src="/frame/static/v4/App.js?v=812a3"></script>
+</body>
+</html>
+
+
+after push
+<html lang="en">
+<head>
+<link href="/frame/static/v4/App.css?v=f781e" rel="stylesheet"/>
+<!-- Set latest compatibility for IE -->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+</head>
+<body class="uses-app-background">
+<div class="app"></div>
+<script id="error-data" type="text/json">{"stat": "FAIL", "message_enum": 57, "is_preauth_outcome": false}</script>
+<script id="base-data" type="text/json">{"brand": {"company": "Duo Security", "desktop": "Duo Desktop", "mobile": "Duo Mobile", "id": "duo", "website_root": "https://duo.com", "product": "Duo", "push": "Duo Push"}, "help_url": "https://guide.duo.com/traditional-enrollment", "logo": {"logo_link": "/frame/prompt?sid=frameless-8df6c1d5-3a89-4d0b-acec-f6ae4291c58c", "logo_alt_text": "Duo Security Logo", "logo_src": "/frame/static/img/duo-cisco-logo-green.png?v=437f1"}, "session_id": "frameless-8df6c1d5-3a89-4d0b-acec-f6ae4291c58c", "use_duo_branding": true, "const": {"factor_phone": "Phone Call", "factor_passcode": "Passcode", "factor_push": "Duo Push", "device_u2f": "u2f", "device_webauthn": "webauthn", "post_auth_add_device": "addDevice", "post_auth_manage_devices": "manageDevices", "os_families": ["Windows Phone", "Blackberry", "Mac OS X", "Windows", "iOS", "Android", "Linux", "Chrome OS", "Unknown Operating System"], "browser_families": ["Safari", "Chrome", "Firefox", "Internet Explorer", "Edge", "Mobile Safari", "Chrome Mobile", "Opera", "Opera Mobile", "Firefox Mobile", "Unknown", "Edge Chromium", "Edge Chromium Mobile"], "software_family_chrome": "Chrome"}, "is_new_user": false, "show_self_service_links": false, "helpdesk_message": "null", "is_in_oidc_flow": true, "xsrf_token": "32522d2566484596acc276c6e67fb167", "style": {"app_background_color": "#E7E9ED", "accent_color": "#0B69E5"}, "features": {"has_webauthn_browser_expansion_feature": false, "has_hostname_validation_feature": false, "has_auto_selection_feature": false, "has_device_filter_feature": false, "has_iframed_up_blocking_feature": false}, "session_trace": "", "can_offer_new_device_flow": false}</script>
+<script id="translations" type="text/json">
+{"locale_data": {"js-messages": {"": {"domain": "js-messages", "lang": "en", "plural_forms": "nplurals=2; plural=(n != 1);"}}}, "domain": "js-messages"}
+</script>
+<script data-url="/frame/browser_exceptions" id="browser_exceptions" src="/frame/static/shared/js/errors.js?v=d10d2"></script>
+<script src="/frame/static/v4/App.js?v=812a3"></script>
+</body>
+</html>
+
+
+
+
+
+
+<html lang="en"><head>
+<link href="/frame/static/v4/App.css?v=f781e" rel="stylesheet"/>
+<!-- Set latest compatibility for IE -->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Duo Security</title></head>
+<body class="uses-app-background">
+<div class="app"><div class="main"><div class="card card--white-label uses-white-label-border-color display-flex flex-direction-column"></div><div id="compliance-text-card-portal"></div></div></div>
+<script id="error-data" type="text/json">null</script>
+<script id="translations" type="text/json">
+{"locale_data": {"js-messages": {"": {"domain": "js-messages", "lang": "en", "plural_forms": "nplurals=2; plural=(n != 1);"}}}, "domain": "js-messages"}
+</script>
+<script data-url="/frame/browser_exceptions" id="browser_exceptions" src="/frame/static/shared/js/errors.js?v=d10d2"></script>
+<script src="/frame/static/v4/App.js?v=812a3"></script>
+</body></html>
+
+<html lang="en"><head>
+<link href="/frame/static/v4/App.css?v=f781e" rel="stylesheet"/>
+<!-- Set latest compatibility for IE -->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Duo Security</title></head>
+<body class="uses-app-background">
+<div class="app"><div class="main"><div class="card card--white-label uses-white-label-border-color display-flex flex-direction-column"></div><div id="compliance-text-card-portal"></div></div></div>
+<script id="error-data" type="text/json">null</script>
+<script id="translations" type="text/json">
+{"locale_data": {"js-messages": {"": {"domain": "js-messages", "lang": "en", "plural_forms": "nplurals=2; plural=(n != 1);"}}}, "domain": "js-messages"}
+</script>
+<script data-url="/frame/browser_exceptions" id="browser_exceptions" src="/frame/static/shared/js/errors.js?v=d10d2"></script>
+<script src="/frame/static/v4/App.js?v=812a3"></script>
+</body></html>
