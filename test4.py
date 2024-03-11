@@ -11,7 +11,7 @@ from selenium import webdriver
 
 
 # Initializing driver 
-driver = uc.Chrome() 
+driver = uc.Chrome(headless=True) 
 options = uc.ChromeOptions()
 #headless=True
 
