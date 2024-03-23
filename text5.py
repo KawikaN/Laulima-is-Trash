@@ -5,10 +5,18 @@ import mechanicalsoup
 import time
 from bs4 import BeautifulSoup
 import requests
+from selenium.webdriver.common.by import By
+from selenium import webdriver
+import textwrap
+import inspect
+
+dic = {}
+assignments = {}
+tabs = {}
 
 
 # Initializing driver 
-driver = uc.Chrome() 
+driver = uc.Chrome(headless=True) 
 options = uc.ChromeOptions()
 #headless=True
 
@@ -28,34 +36,141 @@ z=driver.find_element("xpath", '//*[@name="submitBtn"]')
 #z=driver.find_element_by_xpath("//input[@name='submitBtn']")
 z.click()
 
-time.sleep(0.5)
+time.sleep(1)
 
-current_url = driver.current_url
-
-
-
-    
-while(all(char in current_url for char in "duosecurity")):
-    print("Please push")
-    time.sleep(2)
-
-    # page = requests.get(driver.current_url)
-    # soup = BeautifulSoup(page.content, "html.parser")
-    # print(soup.find_all('h1'))
-    # print( driver.find_element("xpath", "//*[text()='Yes, this is my device']") )
-    #("xpath", "//input[@id='trust-this-browser-label']"))
+def updateDriver():
+    return
 
 
 
-soup = BeautifulSoup(driver.current_url, "html.parser")
+# checks if its on the pushing screen or if we were pushed through
+while(True):
+    out_of_stock_text = "your"
+    if out_of_stock_text in driver.page_source:
+        break
+    else:
+        print("Please push the duo")
+        time.sleep(2)
+        continue
+
+
+def getData(url, tag):
+    try:
+        driver.get(url)
+    except KeyError:
+        pass
+    response = requests.get(driver.current_url)
+    html_content = response.text
+    soup = BeautifulSoup(html_content, "html.parser")
+    elem = driver.find_elements("xpath", tag)
+    return soup, elem
+
+
+
+driver.find_element("xpath", '//*[@id="trust-browser-button"]').click()
+
+time.sleep(2)
+response = requests.get(driver.current_url)
+html_content = response.text
+soup = BeautifulSoup(html_content, "html.parser")
+elem = driver.find_elements("xpath", '//a[@href]')
+membership = ''
+for a in elem:
+    # print(a.get_attribute("href")+"\n")
+    # print(a.get_attribute("title"))
+    if("Membership" in a.get_attribute("title")):
+        # print(a.get_attribute("title"))
+        membership = a.get_attribute("href")
+        break
+
+
+elem = getData(membership, '//a[@href]')[1]
+for a in elem:
+    className = a.get_attribute("title")
+    if("Go" in className):
+        link = a.get_attribute("href")
+        if("[SP24]" in className):
+            className = className[:23]
+        dic[className[11:]] = link
+
+def getTabs(tabName, tabTitles, a):
+    if(tabName in tabTitles):
+        tabLink = a.get_attribute("href")
+        tabs[course+tabName] = tabLink
+        return True
+    return False
+
+for course in dic:
+    elem = getData(dic[course], '//a[@href]')[1]
+    for a in elem:
+        TabTitles = a.get_attribute("title")
+        tabz = ["Assignments", "Tests", "Announcements", "Gradebook"]
+        for b in tabz:
+            getTabs(b, TabTitles, a)
+
+currentCourse = []
+currentCourse2 = []
+for course in dic:
+    currentCourse = []
+    currentCourse2 = []
+    assignmentsExist = False
+
+    try:
+        driver.get(tabs[course+"Assignments"]) # not collecting correct links for all courses(ics-211 good)
+#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363
+#https://laulima.hawaii.edu/portal/site/MAN.XLSHWST107kb.202430/tool/83178ee7-0886-4c20-ae22-885a06b58f59
+#https://laulima.hawaii.edu/portal/site/MAN.XLSICS141dl.202430/tool/ee2a983a-cd67-4aa5-a567-06ec8e40ffe5
+        
+    except KeyError:
+        # print("Assignment tab for "+course+" does not exist")
+        continue
+    response = requests.get(driver.current_url)
+    html_content = response.text
+    soup = BeautifulSoup(html_content, "html.parser")
+    elem = driver.find_elements("xpath", '//a[@href]')
+    elem2 = driver.find_elements("xpath", '//td[@headers]')
+    count = 0
+    for a in range(len(elem)-1, 0-1, -1):
+        assingmentTitle = ''
+        assingnmentLink = elem[a].get_attribute("name")
+        if("asnActionLink" in assingnmentLink):
+            assingmentTitle = elem[a].get_attribute("title")
+            if(assingmentTitle == ""):
+                continue
+            assingnmentLink = elem[a].get_attribute("href")
+            if("https" in assingnmentLink):
+                currentCourse.append(assingnmentLink)
+        if(assingmentTitle == ""):
+            continue
+        if(a < len(elem2)):
+            c = elem2[a].get_attribute("headers")
+            if("status" in c):
+                assingmentStatus = elem2[a].text
+                currentCourse2.append(assingmentStatus)
+            if("openDate" in c):
+                assingmentOpenDate = elem2[a].text
+                currentCourse2.append(assingmentOpenDate)
+            if("dueDate" in c):
+                assingmentDueDate = elem2[a].text
+                currentCourse2.append(assingmentDueDate)
+            print(currentCourse2)
+        count = count+1
+        # print(currentCourse + currentCourse2)
+        assignments[course+assingmentTitle] = currentCourse + currentCourse2
+        currentCourse = []
+        currentCourse2 = []
+
+#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363
+#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363?panel=Main
+#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363?panel=Main
+
+print(assignments)
+
+
+
+
+
+
+
 driver.quit()
 
-
-#https://api-16a593a9.duosecurity.com/frame/v4/auth/prompt?sid=frameless-fb44a5ce-f1c4-4343-be15-dae20b50a0a7
-#https://api-16a593a9.duosecurity.com/frame/v4/auth/prompt?sid=frameless-fb44a5ce-f1c4-4343-be15-dae20b50a0a7
-#trust-browser-button
-#<button id="trust-browser-button" class="button--primary--full-width button--primary button--xlarge size-margin-top-xlarge size-margin-bottom-medium">Yes, this is my device</button>
-
-<script id="base-data" type="text/json">{"brand": {"company": "Duo Security", "desktop": "Duo Desktop", "mobile": "Duo Mobile", "id": "duo", "website_root": "https://duo.com", "product": "Duo", "push": "Duo Push"}, "help_url": "https://guide.duo.com/traditional-enrollment", "logo": {"logo_link": "/frame/prompt?sid=frameless-32fe69c6-b6f9-4bec-a9bf-14b7bfe07268", "logo_alt_text": "Duo Security Logo", "logo_src": "/frame/static/img/duo-cisco-logo-green.png?v=437f1"}, "session_id": "frameless-32fe69c6-b6f9-4bec-a9bf-14b7bfe07268", "use_duo_branding": true, "const": {"factor_phone": "Phone Call", "factor_passcode": "Passcode", "factor_push": "Duo Push", "device_u2f": "u2f", "device_webauthn": "webauthn", "post_auth_add_device": "addDevice", "post_auth_manage_devices": "manageDevices", "os_families": ["Windows Phone", "Blackberry", "Mac OS X", "Windows", "iOS", "Android", "Linux", "Chrome OS", "Unknown Operating System"], "browser_families": ["Safari", "Chrome", "Firefox", "Internet Explorer", "Edge", "Mobile Safari", "Chrome Mobile", "Opera", "Opera Mobile", "Firefox Mobile", "Unknown", "Edge Chromium", "Edge Chromium Mobile"], "software_family_chrome": "Chrome"}, "is_new_user": false, "show_self_service_links": false, "helpdesk_message": "null", "is_in_oidc_flow": true, "xsrf_token": "fdc11bec7c0348edaa63039dc11ff5e7", "style": {"app_background_color": "#E7E9ED", "accent_color": "#0B69E5"}, "features": {"has_webauthn_browser_expansion_feature": false, "has_hostname_validation_feature": false, "has_auto_selection_feature": false, "has_device_filter_feature": false, "has_iframed_up_blocking_feature": false}, "session_trace": "", "can_offer_new_device_flow": false}</script>
-
-<script id="base-data" type="text/json">{"brand": {"company": "Duo Security", "desktop": "Duo Desktop", "mobile": "Duo Mobile", "id": "duo", "website_root": "https://duo.com", "product": "Duo", "push": "Duo Push"}, "help_url": "https://guide.duo.com/traditional-enrollment", "logo": {"logo_link": "/frame/prompt?sid=frameless-32fe69c6-b6f9-4bec-a9bf-14b7bfe07268", "logo_alt_text": "Duo Security Logo", "logo_src": "/frame/static/img/duo-cisco-logo-green.png?v=437f1"}, "session_id": "frameless-32fe69c6-b6f9-4bec-a9bf-14b7bfe07268", "use_duo_branding": true, "const": {"factor_phone": "Phone Call", "factor_passcode": "Passcode", "factor_push": "Duo Push", "device_u2f": "u2f", "device_webauthn": "webauthn", "post_auth_add_device": "addDevice", "post_auth_manage_devices": "manageDevices", "os_families": ["Windows Phone", "Blackberry", "Mac OS X", "Windows", "iOS", "Android", "Linux", "Chrome OS", "Unknown Operating System"], "browser_families": ["Safari", "Chrome", "Firefox", "Internet Explorer", "Edge", "Mobile Safari", "Chrome Mobile", "Opera", "Opera Mobile", "Firefox Mobile", "Unknown", "Edge Chromium", "Edge Chromium Mobile"], "software_family_chrome": "Chrome"}, "is_new_user": false, "show_self_service_links": false, "helpdesk_message": "null", "is_in_oidc_flow": true, "xsrf_token": "18281a51cdc04421ae41b1e9d1798d03", "style": {"app_background_color": "#E7E9ED", "accent_color": "#0B69E5"}, "features": {"has_webauthn_browser_expansion_feature": false, "has_hostname_validation_feature": false, "has_auto_selection_feature": false, "has_device_filter_feature": false, "has_iframed_up_blocking_feature": false}, "session_trace": "", "can_offer_new_device_flow": false}</script>
