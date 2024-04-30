@@ -1,0 +1,1 @@
+browser.follow_link("login")

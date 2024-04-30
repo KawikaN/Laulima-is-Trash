@@ -1,0 +1,5 @@
+Set up .gitignore
+Put pycache in it
+Put your .env file in there that has your actualy info
+Create a example env file/template (env.template) that the user can fill with their own info
+Can include a run dialog to prompt user for info and fill it automatically

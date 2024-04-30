@@ -1,40 +1,39 @@
-import undetected_chromedriver as uc 
 import selenium
 from bs4 import BeautifulSoup
 import mechanicalsoup
 import time
 from bs4 import BeautifulSoup
 import requests
-from selenium.webdriver.common.by import By
-from selenium import webdriver
-import textwrap
-import inspect
+
 
 dic = {}
 assignments = {}
+school = "University of Hawaii at Manoa"
 tabs = {}
 
 
 # Initializing driver 
-driver = uc.Chrome(headless=True) 
-options = uc.ChromeOptions()
+driver = Chrome(headless=True) 
+options = ChromeOptions()
 #headless=True
 
 
 # Try accessing a website with antibot service 
-driver.get("https://authn.hawaii.edu/cas/login?service=https%3A%2F%2Flaulima.hawaii.edu%2Fsakai-login-tool%2Fcontainer&renew=true")
+driver.get("https://www.ratemyprofessors.com/")
 
 # Find the username and password input fields and submit button using XPath
-username_input = driver.find_element("xpath", "//input[@name='username']")
-password_input = driver.find_element("xpath", "//input[@name='password']")
+school_input = driver.find_element("xpath", "//input[@class='Search__DebouncedSearchInput-sc-10lefvq-1 fwqnjW']")
+# password_input = driver.find_element("xpath", "//input[@name='password']")
 
 #submitBtn
 # Enter username and password
-username_input.send_keys("kawikakn")
-password_input.send_keys("Kanani99!")
-z=driver.find_element("xpath", '//*[@name="submitBtn"]')
+school_input.send_keys(school)
+# password_input.send_keys("Kanani99!")
+# z=driver.find_element("xpath", '//*[@name="submitBtn"]')
+
 #z=driver.find_element_by_xpath("//input[@name='submitBtn']")
-z.click()
+school_input.click()
+school_input.enter()
 
 time.sleep(1)
 
@@ -108,70 +107,57 @@ for course in dic:
         for b in tabz:
             getTabs(b, TabTitles, a)
 
-currentCourse = []
-currentCourse2 = []
 for course in dic:
     currentCourse = []
-    currentCourse2 = []
     assignmentsExist = False
+    assingmentTitle = ''
+    # try:
+    #     elem = getData(tabs[course+"Assignments"], '//a[@href]')[1]
+    #     assignmentsExist = True
+    # except KeyError:
+    #     continue
 
     try:
-        driver.get(tabs[course+"Assignments"]) # not collecting correct links for all courses(ics-211 good)
-#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363
-#https://laulima.hawaii.edu/portal/site/MAN.XLSHWST107kb.202430/tool/83178ee7-0886-4c20-ae22-885a06b58f59
-#https://laulima.hawaii.edu/portal/site/MAN.XLSICS141dl.202430/tool/ee2a983a-cd67-4aa5-a567-06ec8e40ffe5
-        
+        driver.get(tabs[course+"Assignments"])
     except KeyError:
-        # print("Assignment tab for "+course+" does not exist")
         continue
     response = requests.get(driver.current_url)
     html_content = response.text
     soup = BeautifulSoup(html_content, "html.parser")
     elem = driver.find_elements("xpath", '//a[@href]')
     elem2 = driver.find_elements("xpath", '//td[@headers]')
+    
     count = 0
-    for a in range(len(elem)-1, 0-1, -1):
-        assingmentTitle = ''
+    for a in range(len(elem)):
+        currentCourse = []
+        currentCourse2 = []
+        
         assingnmentLink = elem[a].get_attribute("name")
         if("asnActionLink" in assingnmentLink):
             assingmentTitle = elem[a].get_attribute("title")
-            if(assingmentTitle == ""):
-                continue
             assingnmentLink = elem[a].get_attribute("href")
-            if("https" in assingnmentLink):
-                currentCourse.append(assingnmentLink)
-        if(assingmentTitle == ""):
-            continue
-    for a in range(len(elem2)):
-        c = elem2[a].get_attribute("headers")
-        if("status" in c):
-            assingmentStatus = elem2[a].text
-            currentCourse2.append(assingmentStatus)
-        if("openDate" in c):
-            assingmentOpenDate = elem2[a].text
-            currentCourse2.append(assingmentOpenDate)
-        if("dueDate" in c):
-            assingmentDueDate = elem2[a].text
-            currentCourse2.append(assingmentDueDate)
-        
-        
-        currentCourse2
+            currentCourse.append(assingnmentLink)
+        if(a < len(elem2)):
+            c = elem2[a].get_attribute("headers")
+            if("status" in c):
+                assingmentStatus = elem2[a].text
+                currentCourse2.append(assingmentStatus)
+            if("openDate" in c):
+                assingmentOpenDate = elem2[a].text
+                currentCourse2.append(assingmentOpenDate)
+            if("dueDate" in c):
+                assingmentDueDate = elem2[a].text
+                currentCourse2.append(assingmentDueDate)
+        result = currentCourse + currentCourse2
+        print(currentCourse2 + count)
+        assignments[course+assingmentTitle] = result
 
         count = count+1
-        # print(currentCourse + currentCourse2)
-        assignments[course+assingmentTitle] = currentCourse 
-        currentCourse = []
-        currentCourse2 = []
-
-#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363
-#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363?panel=Main
-#https://laulima.hawaii.edu/portal/site/LEE.XLSICS211bp.202430/tool/969c80a7-091f-43b9-8337-a1af5fa3d363?panel=Main
-
-print(assignments)
 
 
 
 
+# print(assignments)
 
 
 
